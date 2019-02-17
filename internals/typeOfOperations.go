@@ -39,7 +39,7 @@ func checkData(dataType string, data []string) string {
 			return fmt.Sprintf("Incomplete/Invalid %s command with %s data, try i.e %s num", dataType, data, createAParkingLot)
 		}
 		if dataType == freeSlot {
-			return fmt.Sprintf("Incomplete/Invalid %s command, try i.e free solNum", dataType)
+			return fmt.Sprintf("Incomplete/Invalid %s command, try i.e %s solNum", data, dataType)
 		}
 
 		if dataType == regNumbersWithColor {
@@ -51,7 +51,7 @@ func checkData(dataType string, data []string) string {
 		}
 
 		if dataType == slotNumberWithReg {
-			return fmt.Sprintf("Incomplete/Invalid %s command with %s data, try i.e %s regNum", dataType, data, slotNumbersWithColor)
+			return fmt.Sprintf("Incomplete/Invalid %s command with %s data, try i.e %s regNum", dataType, data, slotNumberWithReg)
 		}
 	}
 

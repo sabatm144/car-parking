@@ -1,6 +1,9 @@
 package internals
 
 import (
+	"fmt"
+	"log"
+	"strings"
 	"testing"
 )
 
@@ -71,7 +74,6 @@ func Test_findRegOrSlotByColor(t *testing.T) {
 		{3, vehicleInfo{Number: "reg3", Color: ""}, true, -1},
 		{4, vehicleInfo{Number: "reg4", Color: ""}, false, -1},
 		{5, vehicleInfo{}, false, -1},
-
 	}
 	for _, tt := range tests {
 		slotMap := make(map[int]vehicleInfo)
@@ -117,5 +119,32 @@ func Test_parkAVehicle(t *testing.T) {
 	}
 	for _, tt := range tests {
 		parkAVehicle(tt.parkingSlots, tt.data, tt.totalSlots)
+	}
+}
+
+func Test_checkData(t *testing.T) {
+	tests := []struct {
+		operationType string
+		data          []string
+		want          string
+	}{
+		{"", []string{}, "Command not found"},
+		{createAParkingLot, []string{createAParkingLot}, fmt.Sprintf("Incomplete/Invalid %s command with %s data, try i.e %s num", createAParkingLot, []string{createAParkingLot}, createAParkingLot)},
+		{createAParkingLot, []string{createAParkingLot, "6"}, ""},
+		{freeSlot, []string{freeSlot, "6"}, ""},
+		{freeSlot, []string{freeSlot}, fmt.Sprintf("Incomplete/Invalid %s command, try i.e %s solNum", []string{freeSlot}, freeSlot)},
+		{regNumbersWithColor, []string{regNumbersWithColor}, fmt.Sprintf("Incomplete/Invalid %s command with %s data, try i.e %s colorname", regNumbersWithColor, []string{regNumbersWithColor}, regNumbersWithColor)},
+		{regNumbersWithColor, []string{regNumbersWithColor, "W"}, ""},
+		{slotNumbersWithColor, []string{slotNumbersWithColor}, fmt.Sprintf("Incomplete/Invalid %s command with %s data, try i.e %s slotNum", slotNumbersWithColor, []string{slotNumbersWithColor}, slotNumbersWithColor)},
+		{slotNumberWithReg, []string{slotNumberWithReg}, fmt.Sprintf("Incomplete/Invalid %s command with %s data, try i.e %s regNum", slotNumberWithReg, []string{slotNumberWithReg}, slotNumberWithReg)},
+	}
+	for _, tt := range tests {
+		result := checkData(tt.operationType, tt.data)
+		if !strings.EqualFold(result, tt.want) {
+			log.Println(result)
+			log.Println(tt.want)
+
+			t.Errorf("Invalid command data  with %s want %s", result, tt.want)
+		}
 	}
 }
