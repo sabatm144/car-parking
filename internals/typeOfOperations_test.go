@@ -148,3 +148,29 @@ func Test_checkData(t *testing.T) {
 		}
 	}
 }
+
+func Test_processCommand(t *testing.T) {
+	tests := []struct {
+		data []string
+		want int
+	}{
+		{[]string{createAParkingLot, "6"}, 1},
+		{[]string{createAParkingLot}, -1},
+		{[]string{parkVehicle, "KA-01-HH-1234", "W"}, 1},
+		{[]string{freeSlot, "4"}, 1},
+		{[]string{freeSlot}, -1},
+		{[]string{statusOfParkingSlots}, 1},
+		{[]string{regNumbersWithColor}, -1},
+		{[]string{regNumbersWithColor, "W"}, 1},
+		{[]string{slotNumbersWithColor}, -1},
+		{[]string{slotNumberWithReg, "KA-01-HH-1234"}, 1},
+
+	}
+	for _, tt := range tests {
+		result := processCommand(tt.data)
+		if result != tt.want {
+			t.Errorf("Invalid result %d want %d", result, tt.want)
+		}
+	}
+	
+}

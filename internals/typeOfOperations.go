@@ -58,9 +58,9 @@ func checkData(dataType string, data []string) string {
 	return ""
 }
 
-func processCommand(data []string) {
+func processCommand(data []string)  int{
 	if checkData("", data) != "" {
-		return
+		return -1
 	}
 
 	dataType := strings.ToLower(data[0])
@@ -68,7 +68,7 @@ func processCommand(data []string) {
 	case createAParkingLot:
 		if checkData(dataType, data) != "" {
 			log.Printf("%s \n", checkData(dataType, data))
-			return
+			return -1
 		}
 		numberOfParkingLots, _ := strconv.Atoi(data[1])
 		createParkingLot(numberOfParkingLots)
@@ -77,7 +77,7 @@ func processCommand(data []string) {
 	case freeSlot:
 		if checkData(dataType, data) != "" {
 			log.Printf("%s \n", checkData(dataType, data))
-			return
+			return -1
 		}
 		slotNumber, _ := strconv.Atoi(data[1])
 		freeAParkingSlot(parkingSlots, totalNumberOfParkingLots, slotNumber)
@@ -86,22 +86,25 @@ func processCommand(data []string) {
 	case regNumbersWithColor:
 		if checkData(dataType, data) != "" {
 			log.Printf("%s \n", checkData(dataType, data))
-			return
+			return -1
 		}
 		findRegOrSlotByColor(parkingSlots, data[1], true)
 	case slotNumbersWithColor:
 		if checkData(dataType, data) != "" {
 			log.Printf("%s \n", checkData(dataType, data))
-			return
+			return -1
 		}
 		findRegOrSlotByColor(parkingSlots, data[1], false)
 	case slotNumberWithReg:
 		if checkData(dataType, data) != "" {
 			log.Printf("%s \n", checkData(dataType, data))
-			return
+			return -1
 		}
 		findSlotNumberByRegNum(parkingSlots, data[1])
 	default:
 		fmt.Println("Not a valid command")
+		return -1
 	}
+
+	return 1
 }
