@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"parking_lot_s/internals"
 	"strings"
 )
 
@@ -32,8 +31,8 @@ func ReadFromConsole() {
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		line := scanner.Text()
-		operations := strings.Split(line, " ")
-		internals.FindOperationType(operations)
+		data := strings.Split(line, " ")
+		processCommand(data)
 		if line == "exit" {
 			os.Exit(0)
 		}
