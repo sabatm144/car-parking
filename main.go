@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"flag"
 	"fmt"
 	"os"
@@ -17,10 +16,10 @@ func main() {
 
 	// get the actual option values.
 	fmt.Println("mode:", *mode)
-	fmt.Println("filePath:", *filePath)
 
 	if *mode == 2 {
 		fmt.Println("Processing file, please wait")
+		fmt.Println("filePath:", *filePath)
 		if *filePath == "" {
 			fmt.Println("Hey you didn’t mention your input file path")
 			flag.PrintDefaults()
@@ -31,22 +30,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Println("Interactive mode: please type your operations")
-	scanner := bufio.NewScanner(os.Stdin)
-
-	for scanner.Scan() {
-		text := scanner.Text()
-
-		//TODO: execute the command
-
-		if text == "exit" {
-			fmt.Println("Good bye")
-			os.Exit(1)
-		}
-	}
-
-	if err := scanner.Err(); err != nil {
-		fmt.Fprintln(os.Stderr, "reading standard input:", err)
-	}
+	internals.ReadFromConsole()
 
 }
