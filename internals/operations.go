@@ -90,16 +90,16 @@ func listAllSlotDetails(parkingSlots map[int]vehicleInfo) int {
 func findRegOrSlotByColor(parkingSlots map[int]vehicleInfo, color string, regOrSlot bool) int {
 	found := false
 	for slotNum, vehicle := range parkingSlots {
-		if strings.EqualFold(vehicle.Color, color) && regOrSlot {
+		if vehicle.Color != "" && strings.EqualFold(vehicle.Color, color) && regOrSlot {
 			found = true
 			fmt.Printf("%s, ", vehicle.Number)
 		}
-		if strings.EqualFold(vehicle.Color, color) && !regOrSlot {
+		if vehicle.Color != "" && strings.EqualFold(vehicle.Color, color) && !regOrSlot {
 			found = true
 			fmt.Printf("%d, ", slotNum)
 		}
 	}
-	if !found && len(parkingSlots) > 0 {
+	if !found && len(parkingSlots) > 0 || !found{
 		fmt.Println("Not found")
 		return -1
 	}
@@ -110,13 +110,13 @@ func findRegOrSlotByColor(parkingSlots map[int]vehicleInfo, color string, regOrS
 func findSlotNumberByRegNum(parkingSlots map[int]vehicleInfo, regNo string) int {
 	found := false
 	for slotNum, vehicle := range parkingSlots {
-		if strings.EqualFold(vehicle.Number, regNo) {
+		if vehicle.Number != "" && strings.EqualFold(vehicle.Number, regNo) {
 			found = true
 			fmt.Printf("%d, ", slotNum)
 			break
 		}
 	}
-	if !found {
+	if !found && len(parkingSlots) > 0 || !found{
 		fmt.Println("Not found")
 		return -1
 	}

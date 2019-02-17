@@ -47,6 +47,8 @@ func Test_findSlotNumberByRegNum(t *testing.T) {
 		want  int
 	}{
 		{1, vehicleInfo{Number: "reg1", Color: "W"}, "reg1", 1},
+		{2, vehicleInfo{Number: "reg2", Color: "W"}, "", -1},
+		{2, vehicleInfo{}, "reg2", -1},
 	}
 	for _, tt := range tests {
 		slotMap := make(map[int]vehicleInfo)
@@ -55,5 +57,65 @@ func Test_findSlotNumberByRegNum(t *testing.T) {
 		if result != tt.want {
 			t.Errorf("Vehicle with regNum %s not found,  want: %d.", tt.vInfo.Number, tt.want)
 		}
+	}
+}
+func Test_findRegOrSlotByColor(t *testing.T) {
+	tests := []struct {
+		slot       int
+		vInfo      vehicleInfo
+		regOrColor bool
+		want       int
+	}{
+		{1, vehicleInfo{Number: "reg1", Color: "W"}, true, 1},
+		{2, vehicleInfo{Number: "reg2", Color: "B"}, false, 1},
+		{3, vehicleInfo{Number: "reg3", Color: ""}, true, -1},
+		{4, vehicleInfo{Number: "reg4", Color: ""}, false, -1},
+		{5, vehicleInfo{}, false, -1},
+
+	}
+	for _, tt := range tests {
+		slotMap := make(map[int]vehicleInfo)
+		slotMap[tt.slot] = tt.vInfo
+		result := findRegOrSlotByColor(slotMap, tt.vInfo.Color, tt.regOrColor)
+		if result != tt.want {
+			if tt.regOrColor {
+				t.Errorf("Vehicle with regNum %s not found,  want: %d.", tt.vInfo.Number, tt.want)
+			}
+			if !tt.regOrColor {
+				t.Errorf("Vehicle with slot %d not found,  want: %d.", tt.slot, tt.want)
+			}
+		}
+	}
+}
+
+func Test_listAllSlotDetails(t *testing.T) {
+	tests := []struct {
+		slotMap map[int]vehicleInfo
+		want    int
+	}{
+		{nil, -1},
+		{map[int]vehicleInfo{2: vehicleInfo{Number: "reg2", Color: "B"}}, 1},
+	}
+	for _, tt := range tests {
+		result := listAllSlotDetails(tt.slotMap)
+		if result != tt.want {
+			t.Errorf("Vehicle with slots not found,  want: %d.", tt.want)
+		}
+	}
+}
+
+func Test_parkAVehicle(t *testing.T) {
+	tests := []struct {
+		totalSlots   int
+		parkingSlots map[int]vehicleInfo
+		data         []string
+		want         map[int]vehicleInfo
+	}{
+		{1, map[int]vehicleInfo{2: vehicleInfo{Number: "", Color: "", Alloted: false}}, []string{"reg1", "W"}, map[int]vehicleInfo{2: vehicleInfo{Number: "reg1", Color: "W", Alloted: true}}},
+		{1, map[int]vehicleInfo{2: vehicleInfo{Number: "", Color: "", Alloted: false}}, []string{}, nil},
+		{1, nil, []string{"reg1", "W"}, map[int]vehicleInfo{1: vehicleInfo{Number: "reg1", Color: "W", Alloted: true}}},
+	}
+	for _, tt := range tests {
+		parkAVehicle(tt.parkingSlots, tt.data, tt.totalSlots)
 	}
 }

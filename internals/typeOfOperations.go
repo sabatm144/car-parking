@@ -59,7 +59,10 @@ func checkData(dataType string, data []string) string {
 }
 
 func processCommand(data []string) {
-	checkData("", data)
+	if checkData("", data) != "" {
+		return
+	}
+
 	dataType := strings.ToLower(data[0])
 	switch dataType {
 	case createAParkingLot:
