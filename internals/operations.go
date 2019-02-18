@@ -35,13 +35,13 @@ func parkAVehicle(parkingSlots map[int]vehicleInfo, data []string, parkingLots i
 	for slotNum, vehicle := range parkingSlots {
 		if !vehicle.Alloted {
 			parkingSlots[slotNum] = vehicleInfo{Number: regNum, Color: color, Alloted: true}
-			fmt.Printf("Alloted Slot No. %d \n", slotNum)
+			fmt.Printf("Allocated slot number: %d \n", slotNum)
 			return parkingSlots
 		}
 	}
 
 	if assingnedParkingLots >= parkingLots {
-		fmt.Println("Sorry, Parking lot is full")
+		fmt.Println("Sorry, parking lot is full")
 		return parkingSlots
 	}
 	assingnedParkingLots = assingnedParkingLots + 1
@@ -51,7 +51,7 @@ func parkAVehicle(parkingSlots map[int]vehicleInfo, data []string, parkingLots i
 		parkingSlots = make(map[int]vehicleInfo)
 	}
 	parkingSlots[assingnedParkingLots] = vehicleInfo{Number: regNum, Color: color, Alloted: true}
-	fmt.Printf("Alloted Slot No.. %d \n", assingnedParkingLots)
+	fmt.Printf("Allocated slot number: %d \n", assingnedParkingLots)
 	return parkingSlots
 }
 
@@ -62,10 +62,10 @@ func freeAParkingSlot(parkingSlots map[int]vehicleInfo, parkingLots, slotNumber 
 			parkingSlots = make(map[int]vehicleInfo)
 		}
 		parkingSlots[slotNumber] = vehicleInfo{}
-		fmt.Printf("Slot No. %d is free \n", slotNumber)
+		fmt.Printf("Slot number: %d is free \n", slotNumber)
 		return slotNumber
 	}
-	fmt.Printf("Invalid slot No.: %d \n", slotNumber)
+	fmt.Printf("Invalid slot number: %d \n", slotNumber)
 	return -1
 }
 
@@ -75,7 +75,7 @@ func listAllSlotDetails(parkingSlots map[int]vehicleInfo) int {
 		fmt.Println("No cars parked !")
 		return -1
 	}
-	fmt.Println("SlotNum:  RegNum:  Color: ")
+	fmt.Println("Slot No.:  Registration No.:  Color: ")
 	for slotNum, vehicle := range parkingSlots {
 		if vehicle.Number != "" {
 			fmt.Printf("%d     %s    %s \n", slotNum, vehicle.Number, vehicle.Color)

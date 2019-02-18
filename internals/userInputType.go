@@ -71,6 +71,10 @@ func ReadFromConsole() {
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		line := scanner.Text()
+		if line == "exit" {
+			os.Exit(0)
+		}
+		
 		data := strings.Split(line, " ")
 		if len(data) == 0 {
 			log.Printf("Command not found \n")
@@ -78,9 +82,6 @@ func ReadFromConsole() {
 		}
 		if checkData(data) != -1 {
 			processCommand(data)
-		}
-		if line == "exit" {
-			os.Exit(0)
 		}
 	}
 	if err := scanner.Err(); err != nil {
