@@ -4,9 +4,41 @@ import (
 	"bufio"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"strings"
 )
+
+func checkData(data []string) int {
+
+	if len(data) == 1 || len(data) > 2 {
+		command := data[0]
+		if strings.EqualFold(command, createAParkingLot) {
+			log.Printf("Incomplete/Invalid %s command with %s data, try i.e %s num", command, data, createAParkingLot)
+			return -1
+		}
+		if strings.EqualFold(command, freeSlot) {
+			log.Printf("Incomplete/Invalid %s command with %s data, try i.e %s solNum", command, data, command)
+			return -1
+		}
+
+		if strings.EqualFold(command, regNumbersWithColor) {
+			log.Printf("Incomplete/Invalid %s command with %s data, try i.e %s colorname", command, data, regNumbersWithColor)
+			return -1
+		}
+
+		if strings.EqualFold(command, slotNumbersWithColor) {
+			log.Printf("Incomplete/Invalid %s command with %s data, try i.e %s slotNum", command, data, slotNumbersWithColor)
+			return -1
+		}
+
+		if strings.EqualFold(command, slotNumberWithReg) {
+			log.Printf("Incomplete/Invalid %s command with %s data, try i.e %s regNum", command, data, slotNumberWithReg)
+			return -1
+		}
+	}
+	return 1
+}
 
 func ReadFromFile(filePath string) {
 	fmt.Println("Reading input from file ...")
@@ -20,7 +52,13 @@ func ReadFromFile(filePath string) {
 	lines := strings.Split(string(fp), "\n")
 	for _, line := range lines {
 		data := strings.Split(line, " ")
-		processCommand(data)
+		if len(data) == 0 {
+			fmt.Sprintf("Command not found")
+			continue
+		}
+		if checkData(data) != -1 {
+			processCommand(data)
+		}
 	}
 }
 
@@ -32,7 +70,13 @@ func ReadFromConsole() {
 	for scanner.Scan() {
 		line := scanner.Text()
 		data := strings.Split(line, " ")
-		processCommand(data)
+		if len(data) == 0 {
+			fmt.Sprintf("Command not found")
+			continue
+		}
+		if checkData(data) != -1 {
+			processCommand(data)
+		}
 		if line == "exit" {
 			os.Exit(0)
 		}

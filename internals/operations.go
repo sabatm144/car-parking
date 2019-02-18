@@ -28,11 +28,6 @@ func createParkingLot(parkingLot int) int {
 
 func parkAVehicle(parkingSlots map[int]vehicleInfo, data []string, parkingLots int) map[int]vehicleInfo {
 
-	if len(data) < 2 || len(data) > 2 {
-		println("Incomplete/Invalid park command, try i.e park regNum solNum")
-		return nil
-	}
-
 	regNum := data[0]
 	color := data[1]
 	for slotNum, vehicle := range parkingSlots {
@@ -88,6 +83,11 @@ func listAllSlotDetails(parkingSlots map[int]vehicleInfo) int {
 }
 
 func findRegOrSlotByColor(parkingSlots map[int]vehicleInfo, color string, regOrSlot bool) int {
+
+	if parkingSlots == nil {
+		return -1
+	}
+	
 	found := false
 	for slotNum, vehicle := range parkingSlots {
 		if vehicle.Color != "" && strings.EqualFold(vehicle.Color, color) && regOrSlot {
@@ -99,7 +99,7 @@ func findRegOrSlotByColor(parkingSlots map[int]vehicleInfo, color string, regOrS
 			fmt.Printf("%d, ", slotNum)
 		}
 	}
-	if !found && len(parkingSlots) > 0 || !found{
+	if !found && len(parkingSlots) > 0 || !found {
 		fmt.Println("Not found")
 		return -1
 	}
@@ -116,7 +116,7 @@ func findSlotNumberByRegNum(parkingSlots map[int]vehicleInfo, regNo string) int 
 			break
 		}
 	}
-	if !found && len(parkingSlots) > 0 || !found{
+	if !found && len(parkingSlots) > 0 || !found {
 		fmt.Println("Not found")
 		return -1
 	}
