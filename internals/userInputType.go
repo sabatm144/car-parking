@@ -14,26 +14,26 @@ func checkData(data []string) int {
 	if len(data) == 1 || len(data) > 2 {
 		command := data[0]
 		if strings.EqualFold(command, createAParkingLot) {
-			log.Printf("Incomplete/Invalid %s command with %s data, try i.e %s num", command, data, createAParkingLot)
+			log.Printf("Incomplete/Invalid %s command with %s data, try i.e %s num \n", command, data, createAParkingLot)
 			return -1
 		}
 		if strings.EqualFold(command, freeSlot) {
-			log.Printf("Incomplete/Invalid %s command with %s data, try i.e %s solNum", command, data, command)
+			log.Printf("Incomplete/Invalid %s command with %s data, try i.e %s solNum \n", command, data, command)
 			return -1
 		}
 
 		if strings.EqualFold(command, regNumbersWithColor) {
-			log.Printf("Incomplete/Invalid %s command with %s data, try i.e %s colorname", command, data, regNumbersWithColor)
+			log.Printf("Incomplete/Invalid %s command with %s data, try i.e %s colorname \n", command, data, regNumbersWithColor)
 			return -1
 		}
 
 		if strings.EqualFold(command, slotNumbersWithColor) {
-			log.Printf("Incomplete/Invalid %s command with %s data, try i.e %s slotNum", command, data, slotNumbersWithColor)
+			log.Printf("Incomplete/Invalid %s command with %s data, try i.e %s slotNum \n", command, data, slotNumbersWithColor)
 			return -1
 		}
 
 		if strings.EqualFold(command, slotNumberWithReg) {
-			log.Printf("Incomplete/Invalid %s command with %s data, try i.e %s regNum", command, data, slotNumberWithReg)
+			log.Printf("Incomplete/Invalid %s command with %s data, try i.e %s regNum \n", command, data, slotNumberWithReg)
 			return -1
 		}
 	}
@@ -53,7 +53,7 @@ func ReadFromFile(filePath string) {
 	for _, line := range lines {
 		data := strings.Split(line, " ")
 		if len(data) == 0 {
-			fmt.Sprintf("Command not found")
+			log.Printf("Command not found \n")
 			continue
 		}
 		if checkData(data) != -1 {
@@ -71,7 +71,7 @@ func ReadFromConsole() {
 		line := scanner.Text()
 		data := strings.Split(line, " ")
 		if len(data) == 0 {
-			fmt.Sprintf("Command not found")
+			log.Printf("Command not found \n")
 			continue
 		}
 		if checkData(data) != -1 {
