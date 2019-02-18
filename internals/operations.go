@@ -10,6 +10,7 @@ var (
 	assingnedParkingLots int
 )
 
+// createParkingLot: create a parking lot with valid data
 func createParkingLot(parkingLot int) int {
 
 	if totalNumberOfParkingLots > 0 {
@@ -26,6 +27,7 @@ func createParkingLot(parkingLot int) int {
 	return -1
 }
 
+// parkAVehicle: parks the vehicle to the nearest slot
 func parkAVehicle(parkingSlots map[int]vehicleInfo, data []string, parkingLots int) map[int]vehicleInfo {
 
 	regNum := data[0]
@@ -53,6 +55,7 @@ func parkAVehicle(parkingSlots map[int]vehicleInfo, data []string, parkingLots i
 	return parkingSlots
 }
 
+// freeAParkingSlot: frees a parking slot 
 func freeAParkingSlot(parkingSlots map[int]vehicleInfo, parkingLots, slotNumber int) int {
 	if slotNumber > 0 && parkingLots > 0 && slotNumber <= parkingLots {
 		if parkingSlots == nil {
@@ -66,6 +69,7 @@ func freeAParkingSlot(parkingSlots map[int]vehicleInfo, parkingLots, slotNumber 
 	return -1
 }
 
+// listAllSlotDetails: lists the status of all the parked vehicles info
 func listAllSlotDetails(parkingSlots map[int]vehicleInfo) int {
 	if parkingSlots == nil {
 		fmt.Println("No cars parked !")
@@ -82,12 +86,13 @@ func listAllSlotDetails(parkingSlots map[int]vehicleInfo) int {
 	return 1
 }
 
+// findRegOrSlotByColor: finds out reg. no. or slot num through color 
 func findRegOrSlotByColor(parkingSlots map[int]vehicleInfo, color string, regOrSlot bool) int {
 
 	if parkingSlots == nil {
 		return -1
 	}
-	
+
 	found := false
 	for slotNum, vehicle := range parkingSlots {
 		if vehicle.Color != "" && strings.EqualFold(vehicle.Color, color) && regOrSlot {
@@ -107,6 +112,7 @@ func findRegOrSlotByColor(parkingSlots map[int]vehicleInfo, color string, regOrS
 	return 1
 }
 
+// findSlotNumberByRegNum : finds out slot num through reg. no. 
 func findSlotNumberByRegNum(parkingSlots map[int]vehicleInfo, regNo string) int {
 	found := false
 	for slotNum, vehicle := range parkingSlots {

@@ -27,6 +27,8 @@ var (
 	parkingSlots             map[int]vehicleInfo
 )
 
+// processCommand: finds the type of parking operation to take place
+// i.e Create, park, leave, status ...
 func processCommand(data []string) int {
 
 	dataType := strings.ToLower(data[0])

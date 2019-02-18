@@ -9,6 +9,7 @@ import (
 	"strings"
 )
 
+//checkData: checks before processCommand executes
 func checkData(data []string) int {
 
 	if len(data) == 1 || len(data) > 2 {
@@ -40,6 +41,7 @@ func checkData(data []string) int {
 	return 1
 }
 
+//ReadFromFile ...: takes input from a file path
 func ReadFromFile(filePath string) {
 	fmt.Println("Reading input from file ...")
 
@@ -62,8 +64,8 @@ func ReadFromFile(filePath string) {
 	}
 }
 
+//ReadFromConsole ...: takes input from a console
 func ReadFromConsole() {
-
 	fmt.Println("Reading input from console ...")
 
 	scanner := bufio.NewScanner(os.Stdin)
