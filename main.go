@@ -16,6 +16,7 @@ func main() {
 
 	// get the actual option values.
 	fmt.Println("mode:", *mode)
+	fmt.Println("filePath:", *filePath)
 	// -mode = 2 for file input mode
 	if *mode == 2 {
 		fmt.Println("Processing file, please wait")
